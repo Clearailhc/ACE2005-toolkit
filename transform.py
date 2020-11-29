@@ -2,7 +2,13 @@ import json
 import pandas as pd
 import numpy as np
 import random
+import argparse
 
+lang_name = {
+    'en': 'English',
+    'ar': 'Arabic',
+    'zh': 'Chinese'
+}
 
 def load_file_list(language='en', name='train'):
     file_list_path = 'filelist/ace.' + language + '.' + name + '.txt'
@@ -147,10 +153,15 @@ def data_split(all_data, rate=[0.8, 0.1, 0.1]):
 
 if __name__ == "__main__":
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--lang', type=str, help="Name of the language", default='en',
+                        choices=['en', 'ar', 'zh'])
+    args = parser.parse_args()
+    language = lang_name[args.lang]
     all_data = []
     for name in ['train', 'dev', 'test']:
-        file_list = load_file_list(name=name)
-        temp_data = load_processed_data(file_list, name=name)
+        file_list = load_file_list(language=args.lang, name=name)
+        temp_data = load_processed_data(file_list, language=language, name=name)
         globals()[name] = temp_data
         all_data += temp_data
     sentence = input("whether divide by sentence level(y/n):") == 'y'
@@ -160,7 +171,7 @@ if __name__ == "__main__":
         train, dev, test = data_split(all_data, rate)
 
     for name in ['train', 'dev', 'test']:
-        save_path = r'output/' + name + '.json'
+        save_path = r'output/' + str(args.lang) + '-' + name + '.json'
         print("-" * 20 + name + "-" * 20)
         print_count(eval(name))
         save_data(eval(name), save_path)
