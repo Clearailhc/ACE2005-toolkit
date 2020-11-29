@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import numpy as np
 import random
+import argparse
 
 
 def load_file_list(language='en', name='train'):
@@ -19,7 +20,7 @@ def load_processed_data(file_list, language='English', name='train'):
     # 读取句子和tokens
     for file in file_list:
         doc_data = []
-        conll_path = r'processed-data/' + language + '/' + name + '/' + file + '.conllu'
+        conll_path = r'cache_data/' + language + '/' + name + '/' + file + '.conllu'
         with open(conll_path) as f:
             conll_list = f.read().split('\n\n')
             for conll in conll_list:
@@ -39,7 +40,7 @@ def load_processed_data(file_list, language='English', name='train'):
                     doc_data.append(temp)
 
         # 读取entity, event, relation
-        file_path = r'processed-data/' + language + '/' + name + '/' + file + '.v2.json'
+        file_path = r'cache_data/' + language + '/' + name + '/' + file + '.v2.json'
         with open(file_path) as f:
             v2_data = json.loads(f.read())
             for sentence in doc_data:
@@ -82,7 +83,7 @@ def count_type(language='English'):
 
             # 计算文本中句子数目
             doc_sent_len = 0
-            conll_path = r'processed-data/' + language + '/' + name + '/' + file + '.conllu'
+            conll_path = r'cache_data/' + language + '/' + name + '/' + file + '.conllu'
             with open(conll_path) as f:
                 conll_list = f.read().split('\n\n')
                 for conll in conll_list:
@@ -95,7 +96,7 @@ def count_type(language='English'):
                                 doc_sent_len += 1
                             break
 
-            file_path = r'processed-data/' + language + '/' + name + '/' + file + '.v2.json'
+            file_path = r'cache_data/' + language + '/' + name + '/' + file + '.v2.json'
             with open(file_path) as f:
                 v2_data = json.loads(f.read())
             for event in v2_data['events']:
@@ -137,20 +138,34 @@ def data_split(all_data, rate=[0.8, 0.1, 0.1]):
     split_count = np.array(rate) * data_len
     random.shuffle(all_data)
     train = all_data[:int(split_count[0])]
-    dev = all_data[int(split_count[0]): int(split_count[0]+split_count[1])]
-    test = all_data[int(split_count[0]+split_count[1]):]
-    for name in ['train', 'dev', 'test']:
-        print('++++++%s summary++++++' % name)
-        print_count(eval(name))
+    dev = all_data[int(split_count[0]): int(split_count[0] + split_count[1])]
+    test = all_data[int(split_count[0] + split_count[1]):]
+    # for name in ['train', 'dev', 'test']:
+    #     print('++++++%s summary++++++' % name)
+    #     print_count(eval(name))
     return train, dev, test
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--sentence', default=False,
+                        help='whether to use sentence level', type=bool)
+    args = parser.parse_args()
+
     all_data = []
     for name in ['train', 'dev', 'test']:
         file_list = load_file_list(name=name)
-        all_data += load_processed_data(file_list, name=name)
-    train, dev, test = data_split(all_data)
+        temp_data = load_processed_data(file_list, name=name)
+        globals()[name] = temp_data
+        all_data += temp_data
+
+    if args.sentence:
+        rate = [float(i) for i in input("input the train/dev/test rate:").split()]
+        assert sum(rate) == 1 and len(rate) == 3, "wrong rates!"
+        train, dev, test = data_split(all_data, rate)
+
     for name in ['train', 'dev', 'test']:
         save_path = r'output/' + name + '.json'
+        print("-" * 20 + name + "-" * 20)
+        print_count(eval(name))
         save_data(eval(name), save_path)

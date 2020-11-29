@@ -24,7 +24,7 @@ if [[ ! -d $OUT_DIR ]]; then
     curl -o ${OUT_DIR}/${FILENAME} ${URL_PREFIX}/${FILENAME}
 fi
 
-OUT_DIR=cash_data/
+OUT_DIR=cache_data/
 if [[ ! -d $OUT_DIR ]]; then
     mkdir $OUT_DIR
     python -W ignore format.py --data ./ace_2005/data/ \
@@ -35,7 +35,8 @@ if [[ ! -d $OUT_DIR ]]; then
     --filelist ./filelist/ --output $OUT_DIR --lang ar
 fi
 
-python -W ignore extract.py --data $OUT_DIR --lang en
+python -W ignore extract.py --data $OUT_DIR --lang $1
+python -W ignore transform.py --sentence False
 #python -W ignore extract.py --data $OUT_DIR --lang ar
 #python -W ignore extract.py --data $OUT_DIR --lang zh
 rm -rf __pycache__/

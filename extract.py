@@ -539,7 +539,7 @@ def modify_files(opt, split):
     model = Model(model_map[opt.lang])
     for filename in tqdm(filenames, total=len(filenames)):
         sentences = load_conllu(os.path.join(target_dir, '{}.conllu'.format(filename)))
-        jsonObj = load_json(os.path.join(target_dir, '{}.json'.format(filename)))
+        jsonObj = load_json(os.path.join(target_dir, '{}.v1.json'.format(filename)))
 
         modified_entities, dropped, skipped, wrong_head = correct_entities(jsonObj['entities'],
                                                                            sentences,
