@@ -25,15 +25,15 @@
 #fi
 
 OUT_DIR=cache_data/
-if [[ ! -d $OUT_DIR ]]; then
-    mkdir $OUT_DIR
-    python -W ignore format.py --data ./ace_2005/data/ \
-    --filelist ./filelist/ --output $OUT_DIR --lang $1
+#if [[ ! -d $OUT_DIR ]]; then
+#    mkdir $OUT_DIR
+python -W ignore format.py --data ./ace_2005/data/ \
+--filelist ./filelist/ --output $OUT_DIR --lang $1
 #    python -W ignore format.py --data ./ace_2005/data/ \
 #    --filelist ./filelist/ --output $OUT_DIR --lang zh
 #    python -W ignore format.py --data ./ace_2005/data/ \
 #    --filelist ./filelist/ --output $OUT_DIR --lang ar
-fi
+#fi
 
 python -W ignore extract.py --data $OUT_DIR --lang $1
 python -W ignore transform.py --lang $1
