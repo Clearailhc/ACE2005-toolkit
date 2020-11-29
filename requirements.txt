@@ -1,0 +1,6 @@
+ufal.udpipe
+prettytable
+tqdm
+conllu
+pandas
+numpy
