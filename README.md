@@ -91,7 +91,7 @@ The output will save separately in `output/`, each file can be loaded by `json.l
         },
         ...
     ],
-    "golden-event-mentions": [
+    "golden-event-mentions": 
         {
             "event-id": "CNN_CF_20030303.1900.02-EV1-1",
             "event_type": "Movement:Transport",
@@ -130,7 +130,8 @@ The output will save separately in `output/`, each file can be loaded by `json.l
                     5
                 ]
             }
-        }
+        },
+        ...
     ],
     "golden-relation-mentions": [
         {
