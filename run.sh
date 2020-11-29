@@ -36,7 +36,7 @@ if [[ ! -d $OUT_DIR ]]; then
 fi
 
 python -W ignore extract.py --data $OUT_DIR --lang $1
-python -W ignore transform.py --sentence False
+python -W ignore transform.py
 #python -W ignore extract.py --data $OUT_DIR --lang ar
 #python -W ignore extract.py --data $OUT_DIR --lang zh
 rm -rf __pycache__/

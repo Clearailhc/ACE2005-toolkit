@@ -2,7 +2,6 @@ import json
 import pandas as pd
 import numpy as np
 import random
-import argparse
 
 
 def load_file_list(language='en', name='train'):
@@ -147,10 +146,6 @@ def data_split(all_data, rate=[0.8, 0.1, 0.1]):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--sentence', default=False,
-                        help='whether to use sentence level', type=bool)
-    args = parser.parse_args()
 
     all_data = []
     for name in ['train', 'dev', 'test']:
@@ -158,8 +153,8 @@ if __name__ == "__main__":
         temp_data = load_processed_data(file_list, name=name)
         globals()[name] = temp_data
         all_data += temp_data
-
-    if args.sentence:
+    sentence = input("whether divide by sentence level(y/n):") == 'y'
+    if sentence:
         rate = [float(i) for i in input("input the train/dev/test rate:").split()]
         assert sum(rate) == 1 and len(rate) == 3, "wrong rates!"
         train, dev, test = data_split(all_data, rate)
