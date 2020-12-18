@@ -37,6 +37,7 @@ python -W ignore format.py --data ./ace_2005/data/ \
 
 python -W ignore extract.py --data $OUT_DIR --lang $1
 python -W ignore transform.py --lang $1
+python -W ignore build_BIO.py --lang $1
 #python -W ignore extract.py --data $OUT_DIR --lang ar
 #python -W ignore extract.py --data $OUT_DIR --lang zh
 rm -rf __pycache__/
