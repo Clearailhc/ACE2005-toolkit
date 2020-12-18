@@ -51,7 +51,7 @@ ACE2005-toolkit
 2. Install all the requirements by `pip install -r requirements.txt`;
 3. Start preprocess by `bash run.sh en`, `en` can be replaced by `zh` or `ar`;
 4. Enter `n` to get data divided by filelist, or enter `y` and `train/dev/test rate`(e.g. `0.8 0.1 0.1`) to get data divided by sentences;
-5. Enter `y` to get transform the data into BIO-type format, the transformed data will be in `output/BIO/`, each train (test or dev) data will transform into 4 BIO-style json files(`token`, `entity_BIO`, `event_trigger_BIO` and `event_argument_BIO`);
+5. Enter `y` to get transform the data into BIO-type format, the transformed data will be in `output/BIO/`, each train (test or dev) data will be transformed into 4 BIO-style json files(`token`, `entity_BIO`, `event_trigger_BIO` and `event_argument_BIO`);
 6. The final output will be in directory `output/`.
 #### Output format
 The output will save separately in `output/`, each file can be loaded by `json.loads()`. After loading, the data will be in `python list` type, each line will be in `python dict` type:
