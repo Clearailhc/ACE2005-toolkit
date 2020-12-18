@@ -1,6 +1,7 @@
 import json
 import os
 import numpy as np
+from tqdm import tqdm
 import argparse
 
 
@@ -65,7 +66,7 @@ def get_event_tag(raw_data):
             sent_tag.append(['O'])
         event_argument_tag.append(sent_tag)  # because of multi-event,get a tag list for each token
 
-    for i in range(len(raw_data)):
+    for i in tqdm(range(len(raw_data)), total=len(raw_data)):
         temp_sent = raw_data[i]
         temp_event_mentions = temp_sent['golden-event-mentions']
         if len(temp_event_mentions) == 0:  # skip if none

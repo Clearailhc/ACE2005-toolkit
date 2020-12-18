@@ -134,7 +134,7 @@ def print_count(data):
             event_type = [event["event_type"] for event in con["golden-event-mentions"]]
             if len(set(event_type)) != len(event_type):
                 multi_same_event_sent_count += 1
-    print('Total Sentence: %d; Total Event:%d; Multi-event-sentence: %d; Multi-same-event-sentence: %d'
+    print('[Total Sentence:] %d, [Total Event:]%d,\n [Multi-event-sentence:] %d, [Multi-same-event-sentence:] %d'
           % (len_data, count, multi_event_sent_count, multi_same_event_sent_count))
 
 
@@ -172,6 +172,6 @@ if __name__ == "__main__":
 
     for name in ['train', 'dev', 'test']:
         save_path = r'output/' + str(args.lang) + '-' + name + '.json'
-        print("-" * 20 + name + "-" * 20)
+        print("-" * 20 + ' ' + name + ' ' + "-" * 20)
         print_count(eval(name))
         save_data(eval(name), save_path)
