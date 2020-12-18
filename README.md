@@ -13,9 +13,9 @@ ACE2005-toolkit
 │   │   └── ...
 │   └── index.html
 ├── cache_data (empty before run)
-│   ├── Arabic
-│   ├── Chinese
-│   └── English
+│   ├── Arabic/
+│   ├── Chinese/
+│   └── English/
 ├── filelist (train/dev/test doc files)
 │   ├── ace.ar.dev
 │   ├── ace.ar.test
@@ -27,7 +27,11 @@ ACE2005-toolkit
 │   ├── ace.zh.test
 │   └── ace.zh.train
 │   
-├── output(final output, empty before run)
+├── output (final output, empty before run)
+│   ├── BIO (BIO output)
+│   │   ├── train/
+│   │   ├── test/
+│   │   └── dev/
 │   └── ...
 ├── udpipe (udpipe files)
 │   ├── arabic-padt-ud-2.5-191206
@@ -47,7 +51,8 @@ ACE2005-toolkit
 2. Install all the requirements by `pip install -r requirements.txt`;
 3. Start preprocess by `bash run.sh en`, `en` can be replaced by `zh` or `ar`;
 4. Enter `n` to get data divided by filelist, or enter `y` and `train/dev/test rate`(e.g. `0.8 0.1 0.1`) to get data divided by sentences;
-5. The final output will in `output/`.
+5. Enter `y` to get transform the data into BIO-type format, the transformed data will be in `output/BIO/`
+6. The final output will be in `output/`.
 #### Output format
 The output will save separately in `output/`, each file can be loaded by `json.loads()`. After loading, the data will be in `python list` type, each line will be in `python dict` type:
 ```
