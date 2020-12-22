@@ -176,6 +176,7 @@ The output will save separately in `output/`, each file can be loaded by `json.l
 }
 ```
 You will get all the golden data of `entities, events and relations` in output files.
+
 #### Adjustment
 You can change the file names in `filelist/`, which will directly change the files belong to `train/dev/test`, we use a default (`529/30/40`) division.
 #### Related work
