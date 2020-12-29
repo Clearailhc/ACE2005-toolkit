@@ -37,6 +37,8 @@ def load_processed_data(file_list, language='English', name='train'):
                         temp['sentence'] = conll.split('\n')[i + 1][9:]
                         if len(temp['sentence'].split()) >= 5:  # TODO仅保留单词数大于5的句子
                             include_flag = 1  # 是否记录标记
+                        elif language == 'Chinese':
+                            include_flag = 1  # 对于中文，因为没有分词长度，所以全部保留
                         break
                 if include_flag:
                     temp['tokens'] = []
