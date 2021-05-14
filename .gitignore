@@ -2,3 +2,4 @@
 .DS_Store
 /output/*.json
 /cache_data/*
+/ace_2005/*
