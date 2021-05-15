@@ -4,3 +4,4 @@ tqdm
 conllu
 pandas
 numpy
+bs4
